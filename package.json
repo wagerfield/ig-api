@@ -1,0 +1,49 @@
+{
+  "name": "ig-api",
+  "version": "0.0.0",
+  "description": "Wrapper around IG's API",
+  "homepage": "https://github.com/wagerfield/ig-api#readme",
+  "author": "Matthew Wagerfield <matthew@wagerfield.com>",
+  "license": "MIT",
+  "keywords": [
+    "ig",
+    "api"
+  ],
+  "files": [
+    "dist"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "clean": "gulp clean",
+    "build": "gulp build",
+    "lint": "superlint --verbose | snazzy",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wagerfield/ig-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wagerfield/ig-api/issues"
+  },
+  "dependencies": {
+    "axios": "^0.16.2",
+    "es6-promise": "^4.1.1"
+  },
+  "devDependencies": {
+    "babel-jest": "^20.0.3",
+    "babel-preset-env": "^1.6.0",
+    "del": "^3.0.0",
+    "dotenv": "^4.0.0",
+    "eslint": "^4.5.0",
+    "eslint-config-supermind": "^0.41.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.0",
+    "husky": "^0.14.3",
+    "jest": "^20.0.4",
+    "snazzy": "^7.0.0",
+    "superlint": "^0.1.0"
+  }
+}
