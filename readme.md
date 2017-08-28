@@ -1,4 +1,4 @@
-> Minimalistic JavaScript wrapper around [IG's REST API][ig-api-ref]
+_Minimalistic JavaScript wrapper around [IG's REST API][ig-api-ref]_
 
 ## Install
 
