@@ -410,6 +410,13 @@ babel-plugin-jest-hoist@^20.0.3:
   version "20.0.3"
   resolved "https://registry.yarnpkg.com/babel-plugin-jest-hoist/-/babel-plugin-jest-hoist-20.0.3.tgz#afedc853bd3f8dc3548ea671fbe69d03cc2c1767"
 
+babel-plugin-lodash@^3.2.11:
+  version "3.2.11"
+  resolved "https://registry.yarnpkg.com/babel-plugin-lodash/-/babel-plugin-lodash-3.2.11.tgz#21c8fdec9fe1835efaa737873e3902bdd66d5701"
+  dependencies:
+    glob "^7.1.1"
+    lodash "^4.17.2"
+
 babel-plugin-syntax-async-functions@^6.8.0:
   version "6.13.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-syntax-async-functions/-/babel-plugin-syntax-async-functions-6.13.0.tgz#cad9cad1191b5ad634bf30ae0872391e0647be95"
@@ -1185,9 +1192,9 @@ eslint-config-supermind@^0.32.0:
     eslint-plugin-jsx-a11y "^6.0.2"
     eslint-plugin-react "^7.1.0"
 
-eslint-config-supermind@^0.41.0:
-  version "0.41.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-supermind/-/eslint-config-supermind-0.41.0.tgz#e1f9e2fe6f21ceffac7783ac0e8e6ccb518b7986"
+eslint-config-supermind@^0.42.0:
+  version "0.42.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-supermind/-/eslint-config-supermind-0.42.0.tgz#1cb191a5064d68e6287ff45cdf0e99c23d9f4761"
   dependencies:
     babel-eslint "^7.2.3"
     eslint "^4.2.0"
@@ -2706,7 +2713,7 @@ lodash.templatesettings@^3.0.0:
     lodash._reinterpolate "^3.0.0"
     lodash.escape "^3.0.0"
 
-lodash@^4.0.0, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.4, lodash@^4.3.0:
+lodash@^4.0.0, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.3.0:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 

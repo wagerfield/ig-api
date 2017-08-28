@@ -12,10 +12,13 @@
   "files": [
     "dist"
   ],
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "clean": "gulp clean",
     "build": "gulp build",
+    "watch": "gulp watch",
+    "prepublish": "npm run build",
+    "precommit": "npm run lint && npm run test",
     "lint": "superlint --verbose | snazzy",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",
@@ -30,15 +33,16 @@
   },
   "dependencies": {
     "axios": "^0.16.2",
-    "es6-promise": "^4.1.1"
+    "es6-promise": "^4.1.1",
+    "lodash": "^4.17.4"
   },
   "devDependencies": {
-    "babel-jest": "^20.0.3",
+    "babel-plugin-lodash": "^3.2.11",
     "babel-preset-env": "^1.6.0",
     "del": "^3.0.0",
     "dotenv": "^4.0.0",
     "eslint": "^4.5.0",
-    "eslint-config-supermind": "^0.41.0",
+    "eslint-config-supermind": "^0.42.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.0",
     "husky": "^0.14.3",
