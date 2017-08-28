@@ -1,4 +1,4 @@
-**Minimalistic JavaScript wrapper around [IG's API][ig-api-ref]**
+> Minimalistic JavaScript wrapper around [IG's API][ig-api-ref]
 
 ## Install
 
@@ -175,3 +175,7 @@ If you don't have a demo account, you will need to create one.
 [ig-api-ref]: https://labs.ig.com/rest-trading-api-reference
 [axios]: https://www.npmjs.com/package/axios
 [data-picking]: #data-picking
+
+## License
+
+MIT. Enjoy.
