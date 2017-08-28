@@ -148,13 +148,11 @@ To do.
 
 To run the tests locally, you will need to create a `.env` file at the root of the repository that contains the following key values:
 
-```
-# Live Account
+```bash
 LIVE_API_KEY=yourLiveApiKey
 LIVE_USERNAME=yourLiveUsername
 LIVE_PASSWORD=yourLivePassword
 
-# Demo Account
 DEMO_API_KEY=yourDemoApiKey
 DEMO_USERNAME=yourDemoUsername
 DEMO_PASSWORD=yourDemoPassword
@@ -164,7 +162,7 @@ Tests rely on a _live_ and _demo_ account, so you will need both setup.
 
 To create your API keys, login to IG and go to:
 
-```
+```bash
 My IG > Settings > API keys
 ```
 
