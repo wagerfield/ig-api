@@ -17,7 +17,7 @@
     "clean": "gulp clean",
     "build": "gulp build",
     "watch": "gulp watch",
-    "prepublish": "npm run build",
+    "prepare": "npm run build",
     "precommit": "npm run lint && npm run test",
     "lint": "superlint --verbose | snazzy",
     "test:coverage": "jest --coverage",
