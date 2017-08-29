@@ -56,12 +56,14 @@ test('get accounts', async () => {
   expect(accounts).toHaveProperty('accounts')
 })
 
-test('get accounts with custom transform', async () => {
-  expect.assertions(1)
-  const ig = new IG(demo.apiKey, demo.isDemo)
+test.only('static transformResponse', () => {
+  expect(IG.transformResponse).toEqual(expect.any(Function))
+  expect(IG.transformResponse({ data: 'foo' })).toBe('foo')
+})
+
+test('custom transformResponse', async () => {
+  const transformResponse = jest.fn(IG.transformResponse)
+  const ig = new IG(demo.apiKey, demo.isDemo, { transformResponse })
   await ig.login(demo.username, demo.password)
-  const accounts = await ig.get('accounts', 1, null, {
-    transformResponse: (response) => response.data.accounts
-  })
-  expect(accounts).toEqual(expect.any(Array))
+  expect(transformResponse.mock.calls.length).toBe(1)
 })
