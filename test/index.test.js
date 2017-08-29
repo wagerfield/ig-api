@@ -47,3 +47,21 @@ test('logout from demo account', async () => {
   const data = await ig.logout()
   expect(data).toBe('')
 })
+
+test('get accounts', async () => {
+  expect.assertions(1)
+  const ig = new IG(demo.apiKey, demo.isDemo)
+  await ig.login(demo.username, demo.password)
+  const accounts = await ig.get('accounts')
+  expect(accounts).toHaveProperty('accounts')
+})
+
+test('get accounts with custom transform', async () => {
+  expect.assertions(1)
+  const ig = new IG(demo.apiKey, demo.isDemo)
+  await ig.login(demo.username, demo.password)
+  const accounts = await ig.get('accounts', 1, null, {
+    transformResponse: (response) => response.data.accounts
+  })
+  expect(accounts).toEqual(expect.any(Array))
+})

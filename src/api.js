@@ -12,15 +12,11 @@ export function create(apiKey, isDemo) {
   })
 }
 
-export function setTokens(apiInstance, response) {
+export function setHeaderTokens(apiInstance, response) {
   assign(apiInstance.defaults.headers, {
     'X-SECURITY-TOKEN': get(response, 'headers.x-security-token', ''),
     'CST': get(response, 'headers.cst', '')
   })
-}
-
-export function pickData(response) {
-  return response.data
 }
 
 export default create

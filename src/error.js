@@ -22,6 +22,6 @@ export function createError(error) {
   }
 }
 
-export function handleError(error) {
+export function transformError(error) {
   throw createError(error)
 }
