@@ -1,3 +1,7 @@
+# IG API
+
+_Minimalistic wrapper around [IG's API][ig-rest-api]_
+
 ## Install
 
 ```bash
@@ -55,7 +59,7 @@ Responses and errors are automatically transformed into a more user friendly for
 parameter | type    | required | description
 ----------|---------|----------|------------
 apiKey    | string  | true     | Application API key
-isDemo    | boolean | true     | Whether or not the API key is associated with a demo account
+isDemo    | boolean | true     | Is the API key associated with a demo account
 options   | object  | false    | See [options][options] for more information
 
 ### `request(method, url, version, data, options)`
@@ -261,7 +265,7 @@ If you don't have a demo account, you will need to create one.
 
 [MIT][mit]
 
-[rest-api]: https://labs.ig.com/rest-trading-api-reference
+[ig-rest-api]: https://labs.ig.com/rest-trading-api-reference
 [axios]: https://www.npmjs.com/package/axios
 [mit]: https://opensource.org/licenses/MIT
 [twitter]: https://twitter.com/wagerfield
