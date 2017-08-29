@@ -229,6 +229,12 @@ ig.login(username, password)
   })
 ```
 
+## Promises
+
+This library depends on a native ES6 [Promise][promise-docs] implementation to be supported.
+
+If your environment doesn't [support][promise-support] ES6 Promises, you can [polyfill][promise-polyfill].
+
 ## Testing
 
 To run the tests locally, you will need to create a `.env` file at the root of the repository that contains the following:
@@ -264,6 +270,9 @@ If you don't have a demo account, you will need to create one.
 [MIT][mit]
 
 [ig-rest-api]: https://labs.ig.com/rest-trading-api-reference
+[promise-docs]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+[promise-polyfill]: https://www.npmjs.com/package/es6-promise
+[promise-support]: http://caniuse.com/#feat=promises
 [axios]: https://www.npmjs.com/package/axios
 [mit]: https://opensource.org/licenses/MIT
 [twitter]: https://twitter.com/wagerfield
