@@ -119,11 +119,11 @@ The `options` object has the following shape:
 
 Both `transformResponse` and `transformError` can be specified as functions or disabled by passing `false`.
 
-By default, the in-built transform functions are used. The in-built `transformResponse` function returns the `response.data` object while the in-built `transformError` function throws a new `IGError`—see [errors][errors] for more information.
+By default, the built-in transform functions are used. The built-in `transformResponse` function _returns_ the `response.data` object while the built-in `transformError` function _throws_ a new `IGError`—see [errors][errors] for more information.
 
 When setting `transformResponse` to `false`, the original `response` object is _returned_ from the request's `resolve` method. This is useful if you want to access the response `headers` or `status` code for example.
 
-When setting `transformError` to `false`, the original `error` object is _thrown_ from the request's `reject` method. This is useful if you want to access the error `request` or `response` objects and throw your own custom error for example.
+When setting `transformError` to `false`, the original `error` object is _thrown_ from the request's `reject` method. This is useful if you want to access the error `request` or `response` objects and throw your own custom error.
 
 You can also specify your own custom transform functions that map the `response` and `error` objects to whatever you so choose.
 
@@ -138,11 +138,31 @@ const ig = new IG(apiKey, isDemo, {
       code: response.status,
       data: response.data
     }
+  },
+  transformError(error) {
+    throw new Error(`UH OH! ${error.message}`)
   }
 })
 
 const customResponse = await ig.login(username, password)
 console.log(customResponse) // { code: 200, data: { ... } }
+```
+
+If you want to use the built-in transform functions in your own code, they are available as static properties on the `IG` class:
+
+```js
+import IG from 'ig-api'
+
+const ig = new IG(apiKey, isDemo, {
+  transformResponse(response) {
+    // Do something with the response...
+    return IG.transformResponse(response)
+  },
+  transformError(error) {
+    // Do something with the error...
+    IG.transformError(error) // throw is called within IG.transformError
+  }
+})
 ```
 
 Passing an `options` object to the `IG` constructor (as shown above) serves as a way for setting the default transform functions for _all_ requests on that instance.
