@@ -56,7 +56,7 @@ test('get accounts', async () => {
   expect(accounts).toHaveProperty('accounts')
 })
 
-test.only('static transformResponse', () => {
+test('static transformResponse', () => {
   expect(IG.transformResponse).toEqual(expect.any(Function))
   expect(IG.transformResponse({ data: 'foo' })).toBe('foo')
 })
