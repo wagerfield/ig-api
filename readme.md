@@ -197,13 +197,13 @@ console.log(status) // 200
 
 ## Errors
 
-Unless the `transformError` function is disabled or overridden via [options][options], _all_ request errors are handled by the in-built transform function.
+Unless the `transformError` function is disabled or overridden via [options][options], _all_ request errors are handled by the built-in transform function.
 
 When an `error` is thrown from a `request`, a new `IGError` is created that has the following shape:
 
 key        | description
 -----------|------------
-type       | Values are `'request'` or `'response'`
+type       | Either `'request'` or `'response'`
 message    | Error message
 status     | Response status code (`type:response` only)
 statusText | Response status text (`type:response` only)
@@ -243,9 +243,7 @@ DEMO_USERNAME=yourDemoUsername
 DEMO_PASSWORD=yourDemoPassword
 ```
 
-Tests rely on a _live_ and _demo_ account, so you will need both.
-
-To create your API keys, login to IG and go to:
+Tests rely on both a _live_ and _demo_ account. To create your API keys, login to IG and go to:
 
 ```bash
 My IG > Settings > API keys
