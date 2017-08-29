@@ -42,7 +42,7 @@ console.log('activity:', activity)
 // ES6 Module
 import IG from 'ig-api'
 
-// Require
+// Common JS
 const IG = require('ig-api')
 ```
 
