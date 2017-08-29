@@ -1,13 +1,5 @@
 ## Install
 
-With `yarn`:
-
-```bash
-yarn add ig-api
-```
-
-With `npm`:
-
 ```bash
 npm install ig-api --save
 ```
@@ -35,7 +27,7 @@ ig.login(username, password)
   })
   // Errors are automatically transformed
   // into a more user friendly format with
-  // the response status and IG error codes
+  // the response status and IG error code
   .catch(console.error)
 
 // Using async await
@@ -46,9 +38,17 @@ console.log('activity:', activity)
 
 ## API
 
-The `IG` class is a minimalistic wrapper around [`axios`][axios]—a `Promise` based HTTP client that works in browsers and node. Class instances take care of setting up the request URL, headers and authentication tokens when logging in.
+```js
+// ES6 Module
+import IG from 'ig-api'
 
-Responses and errors are automatically transformed into a more user friendly format, though this can be customised or disabled if desired. See [`options`][options] for more information.
+// Require
+const IG = require('ig-api')
+```
+
+The `IG` class is a minimalistic wrapper around [`axios`][axios]—a Promise based HTTP client that works in browsers and node. Class instances take care of setting up the request URL, headers and authentication tokens when logging into an account.
+
+Responses and errors are automatically transformed into a more user friendly format, though this can be customised or disabled if desired. See [options][options] for more information.
 
 ### `constructor(apiKey, isDemo, options)`
 
@@ -62,9 +62,9 @@ options   | object  | false    | See [options][options] for more information
 
 parameter | type    | required | description
 ----------|---------|----------|------------
-method    | string  | true     | Request method to use (`'get'`, `'put'`, `'post'` or `'delete'`)
-url       | string  | true     | Endpoint url path eg. `'history/transactions'`
-version   | number  | false    | Endpoint version (`1`, `2` or `3`). Defaults to `1`
+method    | string  | true     | Request method to use ('get', 'put', 'post' or 'delete')
+url       | string  | true     | Endpoint url path eg. 'history/transactions'
+version   | number  | false    | Endpoint version (1, 2 or 3). Defaults to 1
 data      | object  | false    | Data payload to send with the request
 options   | object  | false    | See [options][options] for more information
 
@@ -100,7 +100,7 @@ options   | object  | false    | See [options][options] for more information
 
 ## Options
 
-The `IG` constructor and all instance methods take an options argument as the final parameter.
+The `IG` constructor and all instance methods take an `options` argument as the final parameter.
 
 The `options` object has the following shape:
 
@@ -127,7 +127,7 @@ When setting `transformError` to `false`, the original `error` object is _thrown
 
 You can also specify your own custom transform functions that map the `response` and `error` objects to whatever you so choose.
 
-For example if you wanted to return the response `data` and `status` code for _all_ requests:
+For example if you wanted to return the response `data` and `status` code for _all_ requests on an instance:
 
 ```js
 import IG from 'ig-api'
