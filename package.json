@@ -1,6 +1,6 @@
 {
   "name": "ig-api",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Wrapper around IG's API",
   "homepage": "https://github.com/wagerfield/ig-api#readme",
   "author": "Matthew Wagerfield <matthew@wagerfield.com>",
