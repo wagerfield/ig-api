@@ -1,5 +1,3 @@
-_Minimalistic JavaScript wrapper around [IG's REST API][rest-api]_
-
 ## Install
 
 With `yarn`:
