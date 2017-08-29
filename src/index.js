@@ -1,4 +1,3 @@
-import 'es6-promise/auto'
 import { assign, isFunction } from 'lodash'
 import { create, setHeaderTokens } from './api'
 import { transformResponse } from './response'
