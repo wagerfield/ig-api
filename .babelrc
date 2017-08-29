@@ -3,6 +3,7 @@
     "env"
   ],
   "plugins": [
-    "lodash"
+    "lodash",
+    "add-module-exports"
   ]
 }
