@@ -88,12 +88,13 @@ Shorthand to `request`, passing `'post'` as the `method`.
 
 Shorthand to `request`, passing `'delete'` as the `method`.
 
-### `login(username, password, options)`
+### `login(username, password, encrypt, options)`
 
 parameter | type    | required | description
 ----------|---------|----------|------------
 username  | string  | true     | Account user name
 password  | string  | true     | Account password
+encrypt   | boolean | false    | Encrypt the password. Defaults to false
 options   | object  | false    | See [options][options] for more information
 
 ### `logout(options)`
