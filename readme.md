@@ -62,6 +62,21 @@ apiKey    | string  | true     | Application API key
 isDemo    | boolean | true     | Is the API key associated with a demo account
 options   | object  | false    | See [options][options] for more information
 
+### `login(username, password, encrypt, options)`
+
+parameter | type    | required | description
+----------|---------|----------|------------
+username  | string  | true     | Account user name
+password  | string  | true     | Account password
+encrypt   | boolean | false    | Encrypt the password. Defaults to false
+options   | object  | false    | See [options][options] for more information
+
+### `logout(options)`
+
+parameter | type    | required | description
+----------|---------|----------|------------
+options   | object  | false    | See [options][options] for more information
+
 ### `request(method, url, version, data, options)`
 
 parameter | type    | required | description
@@ -87,21 +102,6 @@ Shorthand to `request`, passing `'post'` as the `method`.
 ### `delete(url, version, data, options)`
 
 Shorthand to `request`, passing `'delete'` as the `method`.
-
-### `login(username, password, encrypt, options)`
-
-parameter | type    | required | description
-----------|---------|----------|------------
-username  | string  | true     | Account user name
-password  | string  | true     | Account password
-encrypt   | boolean | false    | Encrypt the password. Defaults to false
-options   | object  | false    | See [options][options] for more information
-
-### `logout(options)`
-
-parameter | type    | required | description
-----------|---------|----------|------------
-options   | object  | false    | See [options][options] for more information
 
 ## Options
 
