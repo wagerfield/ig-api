@@ -1205,9 +1205,9 @@ eslint-config-supermind@^0.32.0:
     eslint-plugin-jsx-a11y "^6.0.2"
     eslint-plugin-react "^7.1.0"
 
-eslint-config-supermind@^0.42.0:
-  version "0.42.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-supermind/-/eslint-config-supermind-0.42.0.tgz#1cb191a5064d68e6287ff45cdf0e99c23d9f4761"
+eslint-config-supermind@^0.43.0:
+  version "0.43.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-supermind/-/eslint-config-supermind-0.43.0.tgz#52926975e264767d247a95d137565b55311e5028"
   dependencies:
     babel-eslint "^7.2.3"
     eslint "^4.2.0"

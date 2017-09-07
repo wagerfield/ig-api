@@ -1,7 +1,7 @@
 {
   "name": "ig-api",
   "version": "0.7.0",
-  "description": "Wrapper around IG's API",
+  "description": "Minimalistic wrapper around IG's API",
   "homepage": "https://github.com/wagerfield/ig-api#readme",
   "author": "Matthew Wagerfield <matthew@wagerfield.com>",
   "license": "MIT",
@@ -43,7 +43,7 @@
     "del": "^3.0.0",
     "dotenv": "^4.0.0",
     "eslint": "^4.5.0",
-    "eslint-config-supermind": "^0.42.0",
+    "eslint-config-supermind": "^0.43.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.0",
     "husky": "^0.14.3",
