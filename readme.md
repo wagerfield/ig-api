@@ -131,7 +131,7 @@ When setting `transformError` to `false`, the original `error` object is _thrown
 
 You can also specify your own custom transform functions that map the `response` and `error` objects to whatever you so choose.
 
-For example if you wanted to return the response `data` and `status` code for _all_ requests on an instance:
+For example if you wanted to return the response `data` and `status` code for _all_ requests on an instance and customise the error:
 
 ```js
 import IG from 'ig-api'
@@ -144,7 +144,7 @@ const ig = new IG(apiKey, isDemo, {
     }
   },
   transformError(error) {
-    throw new Error(`UH OH! ${error.message}`)
+    throw new Error(`Uh oh! ${error.message}`)
   }
 })
 
