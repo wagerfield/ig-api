@@ -1,7 +1,7 @@
 import IG from '../src/index'
 import getConfig from './env'
 
-const demo = getConfig(true)
+const account = getConfig(true)
 
 test('static transformResponse', () => {
   expect(IG.transformResponse).toEqual(expect.any(Function))
@@ -10,7 +10,7 @@ test('static transformResponse', () => {
 
 test('custom transformResponse', async () => {
   const transformResponse = jest.fn(IG.transformResponse)
-  const ig = new IG(demo.apiKey, demo.isDemo, { transformResponse })
-  await ig.login(demo.username, demo.password)
+  const ig = new IG(account.apiKey, account.isDemo, { transformResponse })
+  await ig.login(account.username, account.password)
   expect(transformResponse.mock.calls.length).toBe(1)
 })

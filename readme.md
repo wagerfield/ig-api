@@ -2,6 +2,23 @@
 
 _Minimalistic wrapper around [IG's API][ig-rest-api]_
 
+- [Installation](#install)
+- [Usage](#usage)
+- [API](#api)
+    - [constructor](#api-constructor)
+    - [login](#api-login)
+    - [logout](#api-logout)
+    - [request](#api-request)
+    - [get](#api-get)
+    - [post](#api-post)
+    - [put](#api-put)
+    - [delete](#api-delete)
+- [Options](#options)
+- [Errors](#errors)
+- [Examples](#examples)
+- [Promises](#promises)
+- [Testing](#testing)
+
 ## Install
 
 ```bash
@@ -52,56 +69,56 @@ const IG = require('ig-api')
 
 The `IG` class is a minimalistic wrapper around [`axios`][axios]—a Promise based HTTP client that works in browsers and node. Class instances take care of setting up the request URL, headers and authentication tokens when logging into an account.
 
-Responses and errors are automatically transformed into a more user friendly format, though this can be customised or disabled if desired. See [options][options] for more information.
+Responses and errors are automatically transformed into a more user friendly format, though this can be customised or disabled if desired. See [options](#options) for more information.
 
-### `constructor(apiKey, isDemo, options)`
+### `constructor(apiKey, isDemo, options)` <a name="api-constructor"></a>
 
 parameter | type    | required | description
 ----------|---------|----------|------------
 apiKey    | string  | true     | Application API key
 isDemo    | boolean | true     | Is the API key associated with a demo account
-options   | object  | false    | See [options][options] for more information
+options   | object  | false    | See [options](#options) for more information
 
-### `login(username, password, encrypt, options)`
+### `login(username, password, encryptPassword, options)` <a name="api-login"></a>
 
-parameter | type    | required | description
-----------|---------|----------|------------
-username  | string  | true     | Account user name
-password  | string  | true     | Account password
-encrypt   | boolean | false    | Encrypt the password. Defaults to false
-options   | object  | false    | See [options][options] for more information
+parameter       | type    | required | description
+----------------|---------|----------|------------
+username        | string  | true     | Account user name
+password        | string  | true     | Account password
+encryptPassword | boolean | false    | Encrypt password before posting. Defaults to false
+options         | object  | false    | See [options](#options) for more information
 
-### `logout(options)`
-
-parameter | type    | required | description
-----------|---------|----------|------------
-options   | object  | false    | See [options][options] for more information
-
-### `request(method, url, version, data, options)`
+### `logout(options)` <a name="api-logout"></a>
 
 parameter | type    | required | description
 ----------|---------|----------|------------
-method    | string  | true     | Request method to use ('get', 'put', 'post' or 'delete')
-url       | string  | true     | Endpoint url path eg. 'history/transactions'
+options   | object  | false    | See [options](#options) for more information
+
+### `request(method, path, version, config, options)` <a name="api-request"></a>
+
+parameter | type    | required | description
+----------|---------|----------|------------
+method    | string  | true     | Request method to use ('get', 'post', 'put' or 'delete')
+path      | string  | true     | Endpoint path eg. 'history/transactions'
 version   | number  | false    | Endpoint version (1, 2 or 3). Defaults to 1
-data      | object  | false    | Data payload to send with the request
-options   | object  | false    | See [options][options] for more information
+config    | object  | false    | Request config to pass to axios. See [documentation][axios-request-config]
+options   | object  | false    | See [options](#options) for more information
 
-### `get(url, version, data, options)`
+### `get(path, version, params, options)` <a name="api-get"></a>
 
-Shorthand to `request`, passing `'get'` as the `method`.
+Shorthand to `request`, passing `'get'` as the `method` and `params` within `config`.
 
-### `put(url, version, data, options)`
+### `post(path, version, data, options)` <a name="api-post"></a>
 
-Shorthand to `request`, passing `'put'` as the `method`.
+Shorthand to `request`, passing `'post'` as the `method` and `data` within `config`.
 
-### `post(url, version, data, options)`
+### `put(path, version, data, options)` <a name="api-put"></a>
 
-Shorthand to `request`, passing `'post'` as the `method`.
+Shorthand to `request`, passing `'put'` as the `method` and `data` within `config`.
 
-### `delete(url, version, data, options)`
+### `delete(path, version, data, options)` <a name="api-delete"></a>
 
-Shorthand to `request`, passing `'delete'` as the `method`.
+Shorthand to `request`, passing `'delete'` as the `method` and `data` within `config`.
 
 ## Options
 
@@ -124,7 +141,7 @@ The `options` object has the following shape:
 
 Both `transformResponse` and `transformError` can be specified as functions or disabled by passing `false`.
 
-By default, the built-in transform functions are used. The built-in `transformResponse` function _returns_ the `response.data` object while the built-in `transformError` function _throws_ a new `IGError`—see [errors][errors] for more information.
+By default, the built-in transform functions are used. The built-in `transformResponse` function _returns_ the `response.data` object while the built-in `transformError` function _throws_ a new `IGError`—see [errors](#errors) for more information.
 
 When setting `transformResponse` to `false`, the original `response` object is _returned_ from the request's `resolve` method. This is useful if you want to access the response `headers` or `status` code for example.
 
@@ -198,7 +215,7 @@ console.log(status) // 200
 
 ## Errors
 
-Unless the `transformError` function is disabled or overridden via [options][options], _all_ request errors are handled by the built-in transform function.
+Unless the `transformError` function is disabled or overridden via [options](#options), _all_ request errors are handled by the built-in transform function.
 
 When an `error` is thrown from a `request`, a new `IGError` is created that has the following shape:
 
@@ -230,6 +247,49 @@ ig.login(username, password)
   })
 ```
 
+## Examples
+
+**IG's REST API documentation can be [found here][ig-rest-api].**
+
+After [logging in](#api-login), use the shorthand [get](#api-get), [post](#api-post), [put](#api-put) and [delete](#api-delete) methods to interact with the API.
+
+Be sure to pass the correct endpoint _version_ as the second argument to these methods. If no version number is passed, a default of 1 is used.
+
+```js
+import IG from 'ig-api'
+
+const isDemo = true
+const apiKey = 'abcdef1234567890abcdef1234567890abcdef12'
+const username = 'johnsmith'
+const password = 'bu11vbear'
+const encryptPassword = false
+
+// Create IG instance
+const ig = new IG(apiKey, isDemo)
+
+// Login to account
+const summary = await ig.login(username, password, encryptPassword)
+
+// Get account history
+const history = await ig.get('history/activity', 3) // Use endpoint version 3
+const historyWithQuery = await ig.get('history/activity', 3, {
+  from: Date
+  pageSize: 10
+})
+
+// Open a new position
+const newPosition = await ig.post('positions/otc', 2, {
+})
+
+// Update an existing position
+const updatedPosition = await ig.put(`positions/otc/${newPosition.dealId}`, 2, {
+})
+
+// Delete an existing position
+const deletedPosition = await ig.delete('positions/otc', 2, {
+})
+```
+
 ## Promises
 
 This library depends on a native ES6 [Promise][promise-docs] implementation to be supported.
@@ -241,16 +301,16 @@ If your environment doesn't [support][promise-support] ES6 Promises, you can [po
 To run the tests locally, you will need to create a `.env` file at the root of the repository that contains the following:
 
 ```bash
-LIVE_API_KEY=yourLiveApiKey
-LIVE_USERNAME=yourLiveUsername
-LIVE_PASSWORD=yourLivePassword
-
 DEMO_API_KEY=yourDemoApiKey
 DEMO_USERNAME=yourDemoUsername
 DEMO_PASSWORD=yourDemoPassword
 ```
 
-Tests rely on both a _live_ and _demo_ account. To create your API keys, login to IG and go to:
+Since tests open and close positions, **you must use a demo account and API key**—otherwise you risk opening _real trades_ with _real money_ and _real risk_.
+
+_I will not take any resposibility for running tests using your live account credentials!_ **You have been warned.**
+
+To create API keys, login to IG and go to:
 
 ```bash
 My IG > Settings > API keys
@@ -262,6 +322,18 @@ If you don't have a demo account, you will need to create one.
 
 **NOTE:** After creating a _demo_ account for the first time, it is important that you login to your account, go to the **Dashboard** and make one of your _demo_ accounts a `default` by clicking the radio button next to it. If you don't do this, you will get a "[Transformation failure](https://labs.ig.com/node/562)" error when attempting to login using your demo credentials.
 
+Tests are written using [jest][jest]. To run the tests:
+
+```bash
+yarn test
+```
+
+To run the tests continuously during development:
+
+```bash
+yarn test:watch
+```
+
 ## Author
 
 [Matthew Wagerfield][twitter]
@@ -270,13 +342,14 @@ If you don't have a demo account, you will need to create one.
 
 [MIT][mit]
 
+
+
 [ig-rest-api]: https://labs.ig.com/rest-trading-api-reference
 [promise-docs]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
 [promise-polyfill]: https://www.npmjs.com/package/es6-promise
 [promise-support]: http://caniuse.com/#feat=promises
 [axios]: https://www.npmjs.com/package/axios
+[axios-request-config]: https://www.npmjs.com/package/axios#request-config
+[jest]: https://facebook.github.io/jest
 [mit]: https://opensource.org/licenses/MIT
 [twitter]: https://twitter.com/wagerfield
-
-[options]: #options
-[errors]: #errors
