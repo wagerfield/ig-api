@@ -118,10 +118,10 @@ options   | object  | false    | See [options](#options) for more information
 <a name="api-get"></a>
 ### `get(path, version, params, options)`
 
-Shorthand to `request`, passing `'get'` as the `method` and `params` as the key value within the `config` object.
+Shorthand to `request`, passing `'get'` as the `method` and `params` as the key value to `config`.
 
 ```js
-// Get account activity since 25th December 2016
+// Get detailed account activity since 25th December 2016
 ig.get('history/activity', 3, {
   from: '2016-12-25',
   detailed: true
@@ -138,7 +138,7 @@ ig.request('get', 'history/activity', 3, {
 <a name="api-post"></a>
 ### `post(path, version, data, options)`
 
-Shorthand to `request`, passing `'post'` as the `method` and `data` as the key value within the `config` object.
+Shorthand to `request`, passing `'post'` as the `method` and `data` as the key value to `config`.
 
 ```js
 // Create a new watchlist
@@ -166,7 +166,7 @@ ig.request('post', 'watchlist', 1, {
 <a name="api-put"></a>
 ### `put(path, version, data, options)`
 
-Shorthand to `request`, passing `'put'` as the `method` and `data` as the key value within the `config` object.
+Shorthand to `request`, passing `'put'` as the `method` and `data` as the key value to `config`.
 
 ```js
 // Switch active account
@@ -184,7 +184,7 @@ ig.request('put', 'session', 1, {
 <a name="api-delete"></a>
 ### `delete(path, version, data, options)`
 
-Shorthand to `request`, passing `'delete'` as the `method` and `data` as the key value within the `config` object.
+Shorthand to `request`, passing `'delete'` as the `method` and `data` as the key value to `config`.
 
 ```js
 // Close a position
