@@ -25,39 +25,63 @@ const updateWatchlist = (watchlistId, epic) =>
 const deleteWatchlist = (watchlistId) =>
   ig.delete(`watchlists/${watchlistId}`)
 
-beforeAll(() => ig.login(account.username, account.password))
+beforeAll(async () => {
+  try {
+    await ig.login(account.username, account.password)
+  } catch (error) {
+    console.error(error)
+  }
+})
 
 afterAll(async () => {
-  const { watchlists } = await ig.get('watchlists')
-  const testWatchlists = filter(watchlists, watchlistPredicate)
-  const promises = map(testWatchlists, ({ id }) => deleteWatchlist(id))
-  await Promise.all(promises)
+  try {
+    const { watchlists } = await ig.get('watchlists')
+    const testWatchlists = filter(watchlists, watchlistPredicate)
+    const promises = map(testWatchlists, ({ id }) => deleteWatchlist(id))
+    await Promise.all(promises)
+  } catch (error) {
+    console.error(error)
+  }
 })
 
 test('get activity with query (get)', async () => {
   expect.hasAssertions()
-  const result = await ig.get('history/activity', 3, {
-    from: '2017-09-01'
-  })
-  expect(result).toHaveProperty('activities')
+  try {
+    const result = await ig.get('history/activity', 3, { from: '2017-09-01' })
+    expect(result).toHaveProperty('activities')
+  } catch (error) {
+    console.error(error)
+  }
 })
 
 test('create watchlist (post)', async () => {
   expect.hasAssertions()
-  const result = await createWatchlist()
-  expect(result).toHaveProperty('watchlistId')
+  try {
+    const result = await createWatchlist()
+    expect(result).toHaveProperty('watchlistId')
+  } catch (error) {
+    console.error(error)
+  }
 })
 
 test('update watchlist (put)', async () => {
   expect.hasAssertions()
-  const { watchlistId } = await createWatchlist()
-  const result = await updateWatchlist(watchlistId, EPIC_2)
-  expect(result).toHaveProperty('status')
+  try {
+    const { watchlistId } = await createWatchlist()
+    const result = await updateWatchlist(watchlistId, EPIC_2)
+    expect(result).toHaveProperty('status')
+  } catch (error) {
+    console.error(error)
+  }
 })
 
 test('delete watchlist (delete)', async () => {
   expect.hasAssertions()
-  const { watchlistId } = await createWatchlist()
-  const result = await deleteWatchlist(watchlistId)
-  expect(result).toHaveProperty('status')
+  try {
+    const { watchlistId } = await createWatchlist()
+    const result = await deleteWatchlist(watchlistId)
+    expect(result).toHaveProperty('status')
+  } catch (error) {
+    console.error(error)
+  }
 })
