@@ -12,8 +12,8 @@ export function create(apiKey, isDemo) {
   })
 }
 
-export function setHeaderTokens(apiInstance, response) {
-  assign(apiInstance.defaults.headers, {
+export function setHeaderTokens(instance, response) {
+  assign(instance.defaults.headers, {
     'X-SECURITY-TOKEN': get(response, 'headers.x-security-token', ''),
     'CST': get(response, 'headers.cst', '')
   })

@@ -1,13 +1,18 @@
 import { assign, isFunction } from 'lodash'
-import { getOption, publicEncrypt } from './utils'
-import { create, setHeaderTokens } from './api'
-import { transformResponse } from './response'
-import { transformError } from './error'
+import { create, setHeaderTokens } from './axios'
+import {
+  uniqueId,
+  getOption,
+  publicEncrypt,
+  transformError,
+  transformResponse
+} from './utils'
 
 export default class IG {
 
   static transformResponse = transformResponse
   static transformError = transformError
+  static uniqueId = uniqueId
 
   constructor(apiKey, isDemo, options) {
     this.api = create(apiKey, isDemo)

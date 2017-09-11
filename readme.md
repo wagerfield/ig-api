@@ -4,7 +4,7 @@ _Minimalistic wrapper around [IG's API][ig-rest-api]_
 
 - [Installation](#install)
 - [Usage](#usage)
-- [API](#api)
+- [Instance API](#instance-api)
     - [constructor](#api-constructor)
     - [login](#api-login)
     - [logout](#api-logout)
@@ -13,16 +13,19 @@ _Minimalistic wrapper around [IG's API][ig-rest-api]_
     - [post](#api-post)
     - [put](#api-put)
     - [delete](#api-delete)
+- [Static API](#static-api)
+    - [IG.transformResponse](#api-transform-response)
+    - [IG.transformError](#api-transform-error)
+    - [IG.uniqueId](#api-unique-id)
 - [Options](#options)
 - [Errors](#errors)
-- [Examples](#examples)
 - [Promises](#promises)
 - [Testing](#testing)
 
 ## Install
 
 ```bash
-npm install ig-api --save
+yarn add ig-api
 ```
 
 ## Usage
@@ -39,11 +42,11 @@ ig.login(username, password)
   .then((summary) => {
     console.log('summary:', summary)
     // Once logged in, use the shorthand
-    // get(), put(), post() and delete()
+    // get(), post(), put() and delete()
     // methods to interact with IG's API
-    ig.get('history/activity')
-      .then((activity) => {
-        console.log('activity:', activity)
+    ig.get('positions')
+      .then((positions) => {
+        console.log('positions:', positions)
       })
   })
   // Errors are automatically transformed
@@ -52,12 +55,16 @@ ig.login(username, password)
   .catch(console.error)
 
 // Using async await
-await ig.login(username, password)
-const activity = await ig.get('history/activity')
-console.log('activity:', activity)
+try {
+  await ig.login(username, password)
+  const positions = await ig.get('positions')
+  console.log('positions:', positions)
+} catch (error) {
+  console.error(error)
+}
 ```
 
-## API
+## Instance API <a name="instance-api"></a>
 
 ```js
 // ES6 Module
@@ -67,7 +74,7 @@ import IG from 'ig-api'
 const IG = require('ig-api')
 ```
 
-The `IG` class is a minimalistic wrapper around [`axios`][axios]—a Promise based HTTP client that works in browsers and node. Class instances take care of setting up the request URL, headers and authentication tokens when logging into an account.
+The `IG` class is a minimalistic wrapper around [`axios`][axios]—a Promise based HTTP client that works in browsers and node. `IG` class instances take care of setting the request URL, headers and authentication tokens when logging into an account.
 
 Responses and errors are automatically transformed into a more user friendly format, though this can be customised or disabled if desired. See [options](#options) for more information.
 
@@ -76,7 +83,7 @@ Responses and errors are automatically transformed into a more user friendly for
 parameter | type    | required | description
 ----------|---------|----------|------------
 apiKey    | string  | true     | Application API key
-isDemo    | boolean | true     | Is the API key associated with a demo account
+isDemo    | boolean | false    | API key associated with a demo account. Defaults to false
 options   | object  | false    | See [options](#options) for more information
 
 ### `login(username, password, encryptPassword, options)` <a name="api-login"></a>
@@ -85,7 +92,7 @@ parameter       | type    | required | description
 ----------------|---------|----------|------------
 username        | string  | true     | Account user name
 password        | string  | true     | Account password
-encryptPassword | boolean | false    | Encrypt password before posting. Defaults to false
+encryptPassword | boolean | false    | Encrypt password before posting to API. Defaults to false
 options         | object  | false    | See [options](#options) for more information
 
 ### `logout(options)` <a name="api-logout"></a>
@@ -106,19 +113,118 @@ options   | object  | false    | See [options](#options) for more information
 
 ### `get(path, version, params, options)` <a name="api-get"></a>
 
-Shorthand to `request`, passing `'get'` as the `method` and `params` within `config`.
+Shorthand to `request`, passing `'get'` as the `method` and `params` as the key value within the `config` object.
+
+```js
+// Get account activity since 25th December 2016
+ig.get('history/activity', 3, {
+  from: '2016-12-25',
+  detailed: true
+})
+// ...is the same as
+ig.request('get', 'history/activity', 3, {
+  params: {
+    from: '2016-12-25',
+    detailed: true
+  }
+})
+```
 
 ### `post(path, version, data, options)` <a name="api-post"></a>
 
-Shorthand to `request`, passing `'post'` as the `method` and `data` within `config`.
+Shorthand to `request`, passing `'post'` as the `method` and `data` as the key value within the `config` object.
+
+```js
+// Create a new watchlist
+ig.post('watchlist', 1, {
+  name: 'Forex Majors',
+  epics: [
+    'CS.D.AUDUSD.TODAY.IP', // AUD/USD
+    'CS.D.EURGBP.TODAY.IP', // EUR/GBP
+    'CS.D.EURUSD.TODAY.IP', // EUR/USD
+  ]
+})
+// ...is the same as
+ig.request('post', 'watchlist', 1, {
+  data: {
+    name: 'Forex Majors',
+    epics: [
+      'CS.D.AUDUSD.TODAY.IP', // AUD/USD
+      'CS.D.EURGBP.TODAY.IP', // EUR/GBP
+      'CS.D.EURUSD.TODAY.IP', // EUR/USD
+    ]
+  }
+})
+```
 
 ### `put(path, version, data, options)` <a name="api-put"></a>
 
-Shorthand to `request`, passing `'put'` as the `method` and `data` within `config`.
+Shorthand to `request`, passing `'put'` as the `method` and `data` as the key value within the `config` object.
+
+```js
+// Switch active account
+ig.put('session', 1, {
+  accountId: 'XXXXX'
+})
+// ...is the same as
+ig.request('put', 'session', 1, {
+  data: {
+    accountId: 'XXXXX'
+  }
+})
+```
 
 ### `delete(path, version, data, options)` <a name="api-delete"></a>
 
-Shorthand to `request`, passing `'delete'` as the `method` and `data` within `config`.
+Shorthand to `request`, passing `'delete'` as the `method` and `data` as the key value within the `config` object.
+
+```js
+// Close a position
+ig.delete('positions/otc', 1, {
+  epic: 'UA.D.AAPL.DAILY.IP', // AAPL DFB
+  orderType: 'MARKET',
+  direction: 'SELL',
+  expiry: 'DFB',
+  size: 0.5
+})
+// ...is the same as
+ig.request('delete', 'positions/otc', 1, {
+  data: {
+    epic: 'UA.D.AAPL.DAILY.IP', // AAPL DFB
+    orderType: 'MARKET',
+    direction: 'SELL',
+    expiry: 'DFB',
+    size: 0.5
+  }
+})
+```
+
+## Static API <a name="static-api"></a>
+
+parameter | type    | required | description
+----------|---------|----------|------------
+response  | object  | true     | Response object
+
+### `IG.transformResponse(response)` <a name="api-transform-response"></a>
+
+Simply returns `response.data`.
+
+### `IG.transformError(error)` <a name="api-transform-error"></a>
+
+parameter | type    | required | description
+----------|---------|----------|------------
+error     | object  | true     | Error object
+
+Throws a new `IGError` from `error`. See [errors](#errors) for more detail.
+
+### `IG.uniqueId(length, chars)` <a name="api-unique-id"></a>
+
+parameter | type    | required | description
+----------|---------|----------|------------
+length    | number  | false    | Length of the unique id. Defaults to 15
+chars     | string  | false    | Chars to use. Defaults to A...Z0...9
+
+Creates a unique id that matches IG's format of 15 uppercase alphanumeric characters eg. `ABCDE12345WVXYZ`. This can be useful when opening a new position and providing a unique `dealReference`.
 
 ## Options
 
@@ -141,7 +247,7 @@ The `options` object has the following shape:
 
 Both `transformResponse` and `transformError` can be specified as functions or disabled by passing `false`.
 
-By default, the built-in transform functions are used. The built-in `transformResponse` function _returns_ the `response.data` object while the built-in `transformError` function _throws_ a new `IGError`—see [errors](#errors) for more information.
+By default, the built-in transform functions are used. See [IG.transformResponse](#api-transform-response) and [IG.transformError](#api-transform-error).
 
 When setting `transformResponse` to `false`, the original `response` object is _returned_ from the request's `resolve` method. This is useful if you want to access the response `headers` or `status` code for example.
 
@@ -247,49 +353,6 @@ ig.login(username, password)
   })
 ```
 
-## Examples
-
-**IG's REST API documentation can be [found here][ig-rest-api].**
-
-After [logging in](#api-login), use the shorthand [get](#api-get), [post](#api-post), [put](#api-put) and [delete](#api-delete) methods to interact with the API.
-
-Be sure to pass the correct endpoint _version_ as the second argument to these methods. If no version number is passed, a default of 1 is used.
-
-```js
-import IG from 'ig-api'
-
-const isDemo = true
-const apiKey = 'abcdef1234567890abcdef1234567890abcdef12'
-const username = 'johnsmith'
-const password = 'bu11vbear'
-const encryptPassword = false
-
-// Create IG instance
-const ig = new IG(apiKey, isDemo)
-
-// Login to account
-const summary = await ig.login(username, password, encryptPassword)
-
-// Get account history
-const history = await ig.get('history/activity', 3) // Use endpoint version 3
-const historyWithQuery = await ig.get('history/activity', 3, {
-  from: Date
-  pageSize: 10
-})
-
-// Open a new position
-const newPosition = await ig.post('positions/otc', 2, {
-})
-
-// Update an existing position
-const updatedPosition = await ig.put(`positions/otc/${newPosition.dealId}`, 2, {
-})
-
-// Delete an existing position
-const deletedPosition = await ig.delete('positions/otc', 2, {
-})
-```
-
 ## Promises
 
 This library depends on a native ES6 [Promise][promise-docs] implementation to be supported.
@@ -306,11 +369,13 @@ DEMO_USERNAME=yourDemoUsername
 DEMO_PASSWORD=yourDemoPassword
 ```
 
-Since tests open and close positions, **you must use a demo account and API key**—otherwise you risk opening _real trades_ with _real money_ and _real risk_.
+### Creating API Keys
 
-_I will not take any resposibility for running tests using your live account credentials!_ **You have been warned.**
+Since tests mutate your account by creating and deleting watchlists, **you must use a demo account and API key**.
 
-To create API keys, login to IG and go to:
+_I will not take any resposibility for running tests using your live account credentials!_
+
+To create an API key, login to IG and go to:
 
 ```bash
 My IG > Settings > API keys
@@ -321,6 +386,8 @@ Here you will be able to create API keys for both your _live_ and _demo_ account
 If you don't have a demo account, you will need to create one.
 
 **NOTE:** After creating a _demo_ account for the first time, it is important that you login to your account, go to the **Dashboard** and make one of your _demo_ accounts a `default` by clicking the radio button next to it. If you don't do this, you will get a "[Transformation failure](https://labs.ig.com/node/562)" error when attempting to login using your demo credentials.
+
+### Running Tests
 
 Tests are written using [jest][jest]. To run the tests:
 

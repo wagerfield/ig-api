@@ -1,6 +1,6 @@
 import { get, assign } from 'lodash'
 
-function IGError(error) {
+export function IGError(error) {
   assign(this, error)
   this.name = 'IGError'
 }
@@ -20,8 +20,4 @@ export function createError(error) {
       message: get(error, 'message')
     })
   }
-}
-
-export function transformError(error) {
-  throw createError(error)
 }

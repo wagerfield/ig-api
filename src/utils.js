@@ -8,8 +8,11 @@ import {
 } from 'pidcrypt/pidcrypt_util'
 import 'pidcrypt/asn1'
 import 'pidcrypt/rsa'
+import { createError } from './error'
 
 const { RSA, ASN1 } = pidcrypt
+
+const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 
 export function publicEncrypt(key, value) {
   const asn = ASN1.decode(toByteArray(decodeBase64(key)))
@@ -20,4 +23,20 @@ export function publicEncrypt(key, value) {
 
 export function getOption(key, options, defaults) {
   return get(options, key, defaults[key])
+}
+
+export function transformResponse(response) {
+  return response.data
+}
+
+export function transformError(error) {
+  throw createError(error)
+}
+
+export function uniqueId(length = 15, chars = CHARS) {
+  let i, result = ''
+  for (i = length; i > 0; --i) {
+    result += chars[Math.floor(Math.random() * chars.length)]
+  }
+  return result
 }
