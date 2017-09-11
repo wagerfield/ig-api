@@ -64,7 +64,7 @@ try {
 }
 ```
 
-## Instance API <a name="instance-api"></a>
+## Instance API
 
 ```js
 // ES6 Module
@@ -78,7 +78,8 @@ The `IG` class is a minimalistic wrapper around [`axios`][axios]—a Promise bas
 
 Responses and errors are automatically transformed into a more user friendly format, though this can be customised or disabled if desired. See [options](#options) for more information.
 
-### constructor(apiKey, isDemo, options) <a name="api-constructor"></a>
+<a name="api-constructor"></a>
+### `constructor(apiKey, isDemo, options)`
 
 parameter | type    | required | description
 ----------|---------|----------|------------
@@ -86,7 +87,8 @@ apiKey    | string  | true     | Application API key
 isDemo    | boolean | false    | API key associated with a demo account. Defaults to false
 options   | object  | false    | See [options](#options) for more information
 
-### login(username, password, encryptPassword, options) <a name="api-login"></a>
+<a name="api-login"></a>
+### `login(username, password, encryptPassword, options)`
 
 parameter       | type    | required | description
 ----------------|---------|----------|------------
@@ -95,13 +97,15 @@ password        | string  | true     | Account password
 encryptPassword | boolean | false    | Encrypt password before posting to API. Defaults to false
 options         | object  | false    | See [options](#options) for more information
 
-### logout(options) <a name="api-logout"></a>
+<a name="api-logout"></a>
+### `logout(options)`
 
 parameter | type    | required | description
 ----------|---------|----------|------------
 options   | object  | false    | See [options](#options) for more information
 
-### request(method, path, version, config, options) <a name="api-request"></a>
+<a name="api-request"></a>
+### `request(method, path, version, config, options)`
 
 parameter | type    | required | description
 ----------|---------|----------|------------
@@ -111,7 +115,8 @@ version   | number  | false    | Endpoint version (1, 2 or 3). Defaults to 1
 config    | object  | false    | Request config to pass to axios. See [documentation][axios-request-config]
 options   | object  | false    | See [options](#options) for more information
 
-### get(path, version, params, options) <a name="api-get"></a>
+<a name="api-get"></a>
+### `get(path, version, params, options)`
 
 Shorthand to `request`, passing `'get'` as the `method` and `params` as the key value within the `config` object.
 
@@ -130,7 +135,8 @@ ig.request('get', 'history/activity', 3, {
 })
 ```
 
-### post(path, version, data, options) <a name="api-post"></a>
+<a name="api-post"></a>
+### `post(path, version, data, options)`
 
 Shorthand to `request`, passing `'post'` as the `method` and `data` as the key value within the `config` object.
 
@@ -157,7 +163,8 @@ ig.request('post', 'watchlist', 1, {
 })
 ```
 
-### put(path, version, data, options) <a name="api-put"></a>
+<a name="api-put"></a>
+### `put(path, version, data, options)`
 
 Shorthand to `request`, passing `'put'` as the `method` and `data` as the key value within the `config` object.
 
@@ -174,7 +181,8 @@ ig.request('put', 'session', 1, {
 })
 ```
 
-### delete(path, version, data, options) <a name="api-delete"></a>
+<a name="api-delete"></a>
+### `delete(path, version, data, options)`
 
 Shorthand to `request`, passing `'delete'` as the `method` and `data` as the key value within the `config` object.
 
@@ -199,17 +207,19 @@ ig.request('delete', 'positions/otc', 1, {
 })
 ```
 
-## Static API <a name="static-api"></a>
+## Static API
 
 parameter | type    | required | description
 ----------|---------|----------|------------
 response  | object  | true     | Response object
 
-### IG.transformResponse(response) <a name="api-transform-response"></a>
+<a name="api-transform-response"></a>
+### `IG.transformResponse(response)`
 
 Simply returns `response.data`.
 
-### IG.transformError(error) <a name="api-transform-error"></a>
+<a name="api-transform-error"></a>
+### `IG.transformError(error)`
 
 parameter | type    | required | description
 ----------|---------|----------|------------
@@ -217,7 +227,8 @@ error     | object  | true     | Error object
 
 Throws a new `IGError` from `error`. See [errors](#errors) for more detail.
 
-### IG.uniqueId(length, chars) <a name="api-unique-id"></a>
+<a name="api-unique-id"></a>
+### `IG.uniqueId(length, chars)`
 
 parameter | type    | required | description
 ----------|---------|----------|------------
