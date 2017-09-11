@@ -209,12 +209,12 @@ ig.request('delete', 'positions/otc', 1, {
 
 ## Static API
 
+<a name="api-transform-response"></a>
+### `IG.transformResponse(response)`
+
 parameter | type    | required | description
 ----------|---------|----------|------------
 response  | object  | true     | Response object
-
-<a name="api-transform-response"></a>
-### `IG.transformResponse(response)`
 
 Simply returns `response.data`.
 
@@ -235,7 +235,9 @@ parameter | type    | required | description
 length    | number  | false    | Length of the unique id. Defaults to 15
 chars     | string  | false    | Chars to use. Defaults to A...Z0...9
 
-Creates a unique id that matches IG's format of 15 uppercase alphanumeric characters eg. `ABCDE12345WVXYZ`. This can be useful when opening a new position and providing a unique `dealReference`.
+Creates a unique id that matches IG's format of 15 uppercase alphanumeric characters eg. `ABCDE12345WVXYZ`.
+
+This can be useful when opening a new position and providing a unique `dealReference`.
 
 ## Options
 
