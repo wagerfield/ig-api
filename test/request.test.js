@@ -1,4 +1,4 @@
-import { map, filter, includes } from 'lodash'
+import { map, filter, includes } from 'rambda'
 import IG from '../src/index'
 import getAccount from './env'
 
@@ -10,8 +10,6 @@ const account = getAccount(true)
 const ig = new IG(account.apiKey, account.isDemo)
 
 const uniqueName = () => `${PREFIX}-${IG.uniqueId(5)}`
-
-const watchlistPredicate = (watchlist) => includes(watchlist.name, PREFIX)
 
 const createWatchlist = () =>
   ig.post('watchlists', 1, {
@@ -25,6 +23,12 @@ const updateWatchlist = (watchlistId, epic) =>
 const deleteWatchlist = (watchlistId) =>
   ig.delete(`watchlists/${watchlistId}`)
 
+const deleteWatchlists = map((watchlist) =>
+  deleteWatchlist(watchlist.id))
+
+const filterWatchlists = filter((watchlist) =>
+  includes(PREFIX, watchlist.name))
+
 beforeAll(async () => {
   try {
     await ig.login(account.username, account.password)
@@ -36,8 +40,8 @@ beforeAll(async () => {
 afterAll(async () => {
   try {
     const { watchlists } = await ig.get('watchlists')
-    const testWatchlists = filter(watchlists, watchlistPredicate)
-    const promises = map(testWatchlists, ({ id }) => deleteWatchlist(id))
+    const testWatchlists = filterWatchlists(watchlists)
+    const promises = deleteWatchlists(testWatchlists)
     await Promise.all(promises)
   } catch (error) {
     console.error(error)

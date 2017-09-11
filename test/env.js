@@ -1,13 +1,17 @@
-import { get, transform, snakeCase } from 'lodash'
+import { path, reduce } from 'rambda'
 import { load } from 'dotenv'
 
 load()
 
+export function constantCase(string) {
+  return string.replace(/([A-Z])/g, '_$1').toUpperCase()
+}
+
 export default function getAccount(isDemo) {
   const prefix = isDemo ? 'DEMO' : 'LIVE'
   const keys = [ 'apiKey', 'username', 'password' ]
-  return transform(keys, (result, key) => {
-    const constant = snakeCase(key).toUpperCase()
-    result[key] = get(process, `env.${prefix}_${constant}`)
-  }, { isDemo })
+  return reduce((result, key) => {
+    result[key] = path(`env.${prefix}_${constantCase(key)}`, process)
+    return result
+  }, { isDemo }, keys)
 }
