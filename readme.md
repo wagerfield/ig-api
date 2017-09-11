@@ -1,6 +1,4 @@
-# IG API
-
-_Minimalistic wrapper around [IG's API][ig-rest-api]_
+**Minimalistic wrapper around [IG's API][ig-rest-api]**
 
 - [Installation](#install)
 - [Usage](#usage)
@@ -84,7 +82,7 @@ Responses and errors are automatically transformed into a more user friendly for
 parameter | type    | required | description
 ----------|---------|----------|------------
 apiKey    | string  | true     | Application API key
-isDemo    | boolean | false    | API key associated with a demo account. Defaults to false
+isDemo    | boolean | false    | Is the API key associated with a demo account? Defaults to false
 options   | object  | false    | See [options](#options) for more information
 
 <a name="api-login"></a>
@@ -233,7 +231,7 @@ Throws a new `IGError` from `error`. See [errors](#errors) for more detail.
 parameter | type    | required | description
 ----------|---------|----------|------------
 length    | number  | false    | Length of the unique id. Defaults to 15
-chars     | string  | false    | Chars to use. Defaults to A...Z0...9
+chars     | string  | false    | Chars to use. Defaults to [A-Z0-9]
 
 Creates a unique id that matches IG's format of 15 uppercase alphanumeric characters eg. `ABCDE12345WVXYZ`.
 
