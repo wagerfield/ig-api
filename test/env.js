@@ -1,9 +1,9 @@
 import { get, transform, snakeCase } from 'lodash'
-import { config } from 'dotenv'
+import { load } from 'dotenv'
 
-config()
+load()
 
-export default function getConfig(isDemo) {
+export default function getAccount(isDemo) {
   const prefix = isDemo ? 'DEMO' : 'LIVE'
   const keys = [ 'apiKey', 'username', 'password' ]
   return transform(keys, (result, key) => {

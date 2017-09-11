@@ -1,8 +1,11 @@
-import { get, assign } from 'lodash'
-import axios from 'axios'
+import { create as axios } from 'axios'
+import { path } from 'rambda'
+
+const appToken = path('headers.x-security-token')
+const clientToken = path('headers.cst')
 
 export function create(apiKey, isDemo) {
-  return axios.create({
+  return axios({
     baseURL: `https://${isDemo ? 'demo-' : ''}api.ig.com/gateway/deal/`,
     headers: {
       'Accept': 'application/json; charset=UTF-8',
@@ -13,10 +16,8 @@ export function create(apiKey, isDemo) {
 }
 
 export function setHeaderTokens(instance, response) {
-  assign(instance.defaults.headers, {
-    'X-SECURITY-TOKEN': get(response, 'headers.x-security-token', ''),
-    'CST': get(response, 'headers.cst', '')
-  })
+  instance.defaults.headers['X-SECURITY-TOKEN'] = appToken(response)
+  instance.defaults.headers['CST'] = clientToken(response)
 }
 
 export default create

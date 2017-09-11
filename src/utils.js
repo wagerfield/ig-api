@@ -1,5 +1,10 @@
 import pidcrypt from 'pidcrypt'
-import { get } from 'lodash'
+import {
+  path,
+  pipe,
+  type,
+  equals
+} from 'rambda'
 import {
   toByteArray,
   decodeBase64,
@@ -14,6 +19,9 @@ const { RSA, ASN1 } = pidcrypt
 
 const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 
+export const isFunction = pipe(type, equals('Function'))
+export const isUndefined = pipe(type, equals('Undefined'))
+
 export function publicEncrypt(key, value) {
   const asn = ASN1.decode(toByteArray(decodeBase64(key)))
   const rsa = new RSA()
@@ -21,12 +29,17 @@ export function publicEncrypt(key, value) {
   return encodeBase64(convertFromHex(rsa.encrypt(value)))
 }
 
+export function get(inputObject, inputPath, defaultValue) {
+  const inputValue = path(inputPath, inputObject)
+  return isUndefined(inputValue) ? defaultValue : inputValue
+}
+
 export function getOption(key, options, defaults) {
-  return get(options, key, defaults[key])
+  return get(options, key, path(key, defaults))
 }
 
 export function transformResponse(response) {
-  return response.data
+  return path('data', response)
 }
 
 export function transformError(error) {

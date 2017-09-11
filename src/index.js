@@ -1,8 +1,8 @@
-import { assign, isFunction } from 'lodash'
 import { create, setHeaderTokens } from './axios'
 import {
   uniqueId,
   getOption,
+  isFunction,
   publicEncrypt,
   transformError,
   transformResponse
@@ -16,7 +16,7 @@ export default class IG {
 
   constructor(apiKey, isDemo, options) {
     this.api = create(apiKey, isDemo)
-    this.defaults = assign({
+    this.defaults = Object.assign({
       transformResponse,
       transformError
     }, options)
@@ -26,7 +26,7 @@ export default class IG {
     const transformRes = getOption('transformResponse', options, this.defaults)
     const transformErr = getOption('transformError', options, this.defaults)
 
-    let request = this.api.request(assign({}, config, {
+    let request = this.api.request(Object.assign({}, config, {
       method, url: path, headers: { Version: version || 1 }
     }))
 

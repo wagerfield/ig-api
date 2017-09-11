@@ -1,12 +1,12 @@
 import { map, filter, includes } from 'lodash'
 import IG from '../src/index'
-import getConfig from './env'
+import getAccount from './env'
 
 const PREFIX = 'ig-api'
 const EPIC_1 = 'UA.D.AAPL.DAILY.IP' // AAPL DFB
 const EPIC_2 = 'UC.D.MSFT.DAILY.IP' // MSFT DFB
 
-const account = getConfig(true)
+const account = getAccount(true)
 const ig = new IG(account.apiKey, account.isDemo)
 
 const uniqueName = () => `${PREFIX}-${IG.uniqueId(5)}`

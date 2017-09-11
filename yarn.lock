@@ -1205,9 +1205,9 @@ eslint-config-supermind@^0.32.0:
     eslint-plugin-jsx-a11y "^6.0.2"
     eslint-plugin-react "^7.1.0"
 
-eslint-config-supermind@^0.44.0:
-  version "0.44.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-supermind/-/eslint-config-supermind-0.44.0.tgz#548462f5ecc4852761644d3089779626e7fc57cd"
+eslint-config-supermind@^0.45.0:
+  version "0.45.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-supermind/-/eslint-config-supermind-0.45.0.tgz#34ac8cb054bac7a0c0c6c5e991c569516cd31b63"
   dependencies:
     babel-eslint "^7.2.3"
     eslint "^4.2.0"
@@ -3208,6 +3208,10 @@ punycode@^1.4.1:
 qs@~6.4.0:
   version "6.4.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.4.0.tgz#13e26d28ad6b0ffaa91312cd3bf708ed351e7233"
+
+rambda@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/rambda/-/rambda-0.9.0.tgz#2f64819955187c59f13ce2dd5efaa9eaf187982c"
 
 ramda@^0.24.1:
   version "0.24.1"

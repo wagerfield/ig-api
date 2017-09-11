@@ -33,8 +33,8 @@
   },
   "dependencies": {
     "axios": "^0.16.2",
-    "lodash": "^4.17.4",
-    "pidcrypt": "^0.0.31"
+    "pidcrypt": "^0.0.31",
+    "rambda": "^0.9.0"
   },
   "devDependencies": {
     "babel-plugin-add-module-exports": "^0.2.1",
@@ -44,11 +44,12 @@
     "del": "^3.0.0",
     "dotenv": "^4.0.0",
     "eslint": "^4.5.0",
-    "eslint-config-supermind": "^0.44.0",
+    "eslint-config-supermind": "^0.45.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.0",
     "husky": "^0.14.3",
     "jest": "^20.0.4",
+    "lodash": "^4.17.4",
     "snazzy": "^7.0.0",
     "superlint": "^0.1.0"
   }

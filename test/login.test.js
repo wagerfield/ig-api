@@ -1,7 +1,7 @@
 import IG from '../src/index'
-import getConfig from './env'
+import getAccount from './env'
 
-const account = getConfig(true)
+const account = getAccount(true)
 
 test('login to account', async () => {
   expect.hasAssertions()
