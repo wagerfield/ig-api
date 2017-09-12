@@ -340,22 +340,22 @@ key        | description
 -----------|------------
 type       | Either `'request'` or `'response'`
 message    | Error message
-status     | Response status code (`type:response` only)
+statusCode | Response status code (`type:response` only)
 statusText | Response status text (`type:response` only)
-code       | Response IG error code (`type:response` only)
+errorCode  | Response IG error code (`type:response` only)
 
-Using `type` and `code` can be very useful for handling IG error codes within your application:
+Using `type` and `errorCode` can be very useful for handling IG error codes within your application:
 
 ```js
 ig.login(username, password)
   .catch((error) => {
     if (error.type === 'response') {
-      switch (error.code) {
+      switch (error.errorCode) {
         case 'error.security.invalid-details':
           alert('Incorrect username or password')
           break;
         default:
-          console.error(error.message, error.code)
+          console.error(error.errorCode)
           break;
       }
     } else {
