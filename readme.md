@@ -338,11 +338,11 @@ When an `error` is thrown from a `request`, a new `IGError` is created that has 
 
 key        | description
 -----------|------------
-type       | Either `'request'` or `'response'`
+type       | Either 'request' or 'response'
 message    | Error message
-statusCode | Response status code (`type:response` only)
-statusText | Response status text (`type:response` only)
-errorCode  | Response IG error code (`type:response` only)
+statusCode | Response status code (type: 'response' only)
+statusText | Response status text (type: 'response' only)
+errorCode  | Response IG error code (type: 'response' only)
 
 Using `type` and `errorCode` can be very useful for handling IG error codes within your application:
 
