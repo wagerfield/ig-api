@@ -1,28 +1,28 @@
 import { path } from 'rambda'
 
-const message = path('message')
-const statusCode = path('response.status')
-const statusText = path('response.statusText')
-const errorCode = path('response.data.errorCode')
-const method = path('config.method')
-const params = path('config.params')
-const data = path('config.data')
-const url = path('config.url')
+const statusCode = path('status')
+const statusText = path('statusText')
+const errorCode = path('data.errorCode')
+const headers = path('headers')
+const method = path('method')
+const params = path('params')
+const data = path('data')
+const url = path('url')
 
-export default function IGError(error) {
-  console.error(error)
-  this.name = 'IGError'
-  this.type = error.response ? 'response' : error.request ? 'request' : 'internal'
-  this.message = message(error)
-  if (error.config) {
-    this.url = url(error)
-    this.data = data(error)
-    this.params = params(error)
-    this.method = method(error)
+export default function createError({ message, request, response, config }) {
+  const error = new Error(message)
+  error.type = response ? 'response' : request ? 'request' : 'internal'
+  if (config) {
+    error.url = url(config)
+    error.data = data(config)
+    error.params = params(config)
+    error.method = method(config)
+    error.headers = headers(config)
   }
-  if (error.response) {
-    this.errorCode = errorCode(error)
-    this.statusCode = statusCode(error)
-    this.statusText = statusText(error)
+  if (response) {
+    error.errorCode = errorCode(response)
+    error.statusCode = statusCode(response)
+    error.statusText = statusText(response)
   }
+  return error
 }

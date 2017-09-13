@@ -223,7 +223,7 @@ parameter | type    | required | description
 ----------|---------|----------|------------
 error     | object  | true     | Error object
 
-Throws a new `IGError` from `error`. See [errors](#errors) for more detail.
+Throws a new `Error` from `error` with additional key values. See [errors](#errors) for more detail.
 
 <a name="api-unique-id"></a>
 ### `IG.uniqueId(length, chars)`
@@ -334,7 +334,7 @@ console.log(status) // 200
 
 Unless the `transformError` function is disabled or overridden via [options](#options), _all_ request errors are handled by the built-in transform function.
 
-When an `error` is thrown from a `request`, a new `IGError` is created that has the following shape:
+When an `error` is thrown from a `request`, a new `Error` is created that has the following shape:
 
 key        | description
 -----------|------------
@@ -344,6 +344,7 @@ url        | Request url
 data       | Request data
 params     | Request params
 method     | Request method
+headers    | Request headers
 statusCode | Response status code (type: 'response' only)
 statusText | Response status text (type: 'response' only)
 errorCode  | Response IG error code (type: 'response' only)
