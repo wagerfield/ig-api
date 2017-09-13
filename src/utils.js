@@ -13,7 +13,7 @@ import {
 } from 'pidcrypt/pidcrypt_util'
 import 'pidcrypt/asn1'
 import 'pidcrypt/rsa'
-import { createError } from './error'
+import IGError from './error'
 
 const { RSA, ASN1 } = pidcrypt
 
@@ -43,7 +43,7 @@ export function transformResponse(response) {
 }
 
 export function transformError(error) {
-  throw createError(error)
+  throw new IGError(error)
 }
 
 export function uniqueId(length = 15, chars = CHARS) {

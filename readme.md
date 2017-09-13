@@ -338,8 +338,12 @@ When an `error` is thrown from a `request`, a new `IGError` is created that has 
 
 key        | description
 -----------|------------
-type       | Either 'request' or 'response'
+type       | Either 'request', 'response' or 'internal'
 message    | Error message
+url        | Request url
+data       | Request data
+params     | Request params
+method     | Request method
 statusCode | Response status code (type: 'response' only)
 statusText | Response status text (type: 'response' only)
 errorCode  | Response IG error code (type: 'response' only)
