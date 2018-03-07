@@ -25,9 +25,19 @@ export default class IG {
   request(method, path, version, config, options) {
     const transformRes = getOption('transformResponse', options, this.defaults)
     const transformErr = getOption('transformError', options, this.defaults)
+    
+    // Account for Delete inconsistensies as per 
+    // https://labs.ig.com/node/36 which is still 
+    // not resolved.
+    let headers = { Version: version || 1 };
+    
+    if(method === 'delete'){
+      method = 'post';
+      headers['_method'] = 'DELETE';
+    }
 
     let request = this.api.request(Object.assign({}, config, {
-      method, url: path, headers: { Version: version || 1 }
+      method, url: path, headers: headers
     }))
 
     if (isFunction(transformRes)) request = request.then(transformRes)
